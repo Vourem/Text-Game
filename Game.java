@@ -29,7 +29,8 @@ public class Game {
     Scanner input;
 
     String[] monsterNames = {"Slime","Goblin","Steve","Annoying person"};
-    String currentMonster;
+    String currentMonster = monsterNames[(int)Math.floor(Math.random()*monsterNames.length)];
+    
 
     int mHealth = 0;
     int pHealth = 20;
@@ -40,7 +41,6 @@ public class Game {
     public Game() {
         input = new Scanner(System.in);
 
-        ///while (pHealth > 0) {
         slowPrintln("\nYou awaken in a desolate field, with nothing but grass and a handful of trees scattered around you.\n");
         System.out.println("---------------------------------\n");
         slowPrintln("What do?");
@@ -62,6 +62,18 @@ public class Game {
                         break;
                     case 'c':
                         slowPrintln("Upon arriving at the structure, you see that it is a small house. You stop before reaching what looks like the main door.");
+                        System.out.println("> ");
+                        thing = input.nextLine();
+                        switch (action) {
+                            case 'o':
+                                slowPrintln("You cautiously reach forward and turn the doorknob. The door swings open slowly, revealing a dark, dusty interior. It has clearly been abandoned for a long time.");
+                                System.out.println("> ");
+                                thing = input.nextLine();
+                                break;
+                            case 'e':
+                                slowPrintln("You circle the area, searching for anything useful. You find only a rusty pickaxe and a crumpled piece of paper.\nWhat now?\nTake [P]aper\nTake pick[A]xe\nTake [B]oth");
+
+                        }
                     case 'q':
                         System.exit(0);
                     default:
@@ -80,11 +92,10 @@ public class Game {
         }
         if (mHealth <= 0) {
             mHealth = 20;
-            currentMonster = monsterNames[(int)Math.floor(Math.random()*monsterNames.length)];
             slowPrintln(currentMonster + " approaches!", 20);
 
 
-       slowPrintln("What's your plan, buddy?\n[A]ttack\n[H]eal\n[N]egotiate\n[R]un");
+        slowPrintln("What's your plan, buddy?\n[A]ttack\n[H]eal\n[N]egotiate\n[R]un");
         System.out.print("> ");
         thing = input.nextLine();
         action = thing.toLowerCase().charAt(0);
@@ -105,6 +116,9 @@ public class Game {
             default:
                 System.out.println("You " + thing + ".");
             }
+        if (mHealth <= 0) {
+            slowPrintln("Monster is dead!");
+        }
         
     }
 }
